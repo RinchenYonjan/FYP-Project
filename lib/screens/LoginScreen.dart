@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
-                      'assets/gmail.png',
+                      'assets/images/gmail.png',
                       width: 24,
                       height: 24,
                     ),
