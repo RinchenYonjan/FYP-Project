@@ -77,6 +77,10 @@ flutter:
     - family: PathwayGothicOne
       fonts:
         - asset: fonts/PathwayGothicOne-Regular.ttf
+    
+    - family: AgencyFB
+      fonts:
+        - asset: fonts/AGENCYB.TTF
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
