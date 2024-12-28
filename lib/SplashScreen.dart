@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // Required for delayed functions
+// Required for delayed functions
+import 'dart:async';
+// Importing other screens
 import 'screens/LoginScreen.dart';
 
 void main() {

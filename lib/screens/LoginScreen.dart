@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// Import other screens as needed
-import 'GetStartedScreen.dart';
+// Importing other screens
 import 'RegisterScreen.dart';
 import 'BoardingScreen.dart';
 
@@ -32,6 +31,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Heading 1
               const Text(
                 'GET FIT',
                 style: TextStyle(
@@ -41,11 +41,22 @@ class LoginScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 40),
+              // Heading 2
+              const Text(
+                "Let's Workout Together",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  color: Color.fromRGBO(228, 0, 0, 1),
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 108),
+              // Email Field
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  hintText: 'useremail@gmail.com',
+                  labelText: 'useremail@gmail.com',
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
@@ -60,7 +71,8 @@ class LoginScreen extends StatelessWidget {
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
+              // Password Field
               TextField(
                 controller: passwordController,
                 decoration: InputDecoration(
@@ -72,7 +84,19 @@ class LoginScreen extends StatelessWidget {
                 ),
                 obscureText: true,
               ),
-              const SizedBox(height: 40),
+              // Forgot Password Textbutton
+              const SizedBox(height: 30),
+              const Text(
+                "Forgot Password?",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  color: Color.fromRGBO(0, 0, 0, 1),
+                ),
+                textAlign: TextAlign.right,
+              ),
+              const SizedBox(height: 35),
+              //  Login Button
               ElevatedButton(
                 onPressed: () {
                   final email = emailController.text;
@@ -92,11 +116,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'Login',
+                  'Log In',
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               TextButton(
                 onPressed: () {
                   // Navigate to Register Screen
@@ -115,19 +139,6 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-// Placeholder for RegisterScreen
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Register")),
-      body: const Center(child: Text("Register Screen")),
     );
   }
 }
