@@ -1,36 +1,62 @@
 import 'package:flutter/material.dart';
-// Importing other screens
-import 'LoginScreen.dart';
-import 'BoardingScreen.dart';
+import 'WelcomeScreen.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: const RegisterScreen(),
+    home: const SignupScreen(),
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      fontFamily: 'AgencyFB', // Global font family
+      fontFamily: 'AgencyFB',
     ),
   ));
 }
 
-// creating loginscreen statelesswidget
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
+
+  @override
+  _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isChecked = false;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Back Button
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen()),
+                    );
+                  },
+                ),
+              ),
+              // Headings
               const Text(
                 'GET FIT',
                 style: TextStyle(
@@ -44,28 +70,27 @@ class RegisterScreen extends StatelessWidget {
                 "Let's Workout Together",
                 style: TextStyle(
                   fontSize: 14,
-                  fontWeight: FontWeight.normal,
                   color: Color.fromRGBO(228, 0, 0, 1),
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 108),
+              const SizedBox(height: 50),
+              // Full Name TextField
               TextField(
-                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Full Name',
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: const Icon(Icons.person),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 30),
+              // Email TextField
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'useremail@gmail.com',
+                  hintText: 'useremail@gmail.com',
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image.asset(
@@ -78,29 +103,56 @@ class RegisterScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 30),
+              // Password TextField
               TextField(
                 controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  prefixIcon: Icon(Icons.password),
+                  prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
                 obscureText: true,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
+              // Terms Checkbox
+              Row(
+                children: [
+                  Checkbox(
+                    value: isChecked,
+                    onChanged: (bool? newValue) {
+                      setState(() {
+                        isChecked = newValue ?? false;
+                      });
+                    },
+                  ),
+                  const Expanded(
+                    child: Text(
+                      "I agree to Terms and Conditions & Privacy Policy.",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              // Sign Up Button
               ElevatedButton(
                 onPressed: () {
-                  final email = emailController.text;
-                  final password = passwordController.text;
+                  if (!isChecked) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please accept the terms and conditions'),
+                      ),
+                    );
+                    return;
+                  }
 
-                  // Perform login logic here
+                  final email = emailController.text;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Logging in with $email')),
+                    SnackBar(content: Text('Signing up with $email')),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -112,23 +164,8 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'Create an account',
+                  'Sign Up',
                   style: TextStyle(fontSize: 18),
-                ),
-              ),
-              const SizedBox(height: 20),
-              TextButton(
-                onPressed: () {
-                  // Navigate to Register Screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegisterScreen()),
-                  );
-                },
-                child: const Text(
-                  "Already have an account? Log In here",
-                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ],

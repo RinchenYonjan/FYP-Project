@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 // Importing other screens
-import 'RegisterScreen.dart';
+import 'WelcomeScreen.dart';
 import 'BoardingScreen.dart';
 
+// main method
 void main() {
   runApp(MaterialApp(
     home: const LoginScreen(),
@@ -13,24 +14,48 @@ void main() {
   ));
 }
 
-// creating loginscreen statelesswidget
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
+  _LoginScreenState createState() {
+    return (_LoginScreenState());
+  }
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isChecked = false; // State for the checkbox
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
+      body: Container(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // IconButton Alignment
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: Colors.black,
+                  iconSize: 24.0,
+                  onPressed: () {
+                    // Navigate to LoginScreen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen()),
+                    );
+                  },
+                ),
+              ),
               // Heading 1
               const Text(
                 'GET FIT',
@@ -77,25 +102,55 @@ class LoginScreen extends StatelessWidget {
                 controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  prefixIcon: Icon(Icons.password),
+                  prefixIcon: const Icon(Icons.password),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
                 obscureText: true,
               ),
-              // Forgot Password Textbutton
-              const SizedBox(height: 30),
-              const Text(
-                "Forgot Password?",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  color: Color.fromRGBO(0, 0, 0, 1),
+              // Creating container widget
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 0.0, vertical: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Row widget
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: isChecked,
+                          onChanged: (bool? newValue) {
+                            setState(() {
+                              isChecked = newValue!;
+                            });
+                          },
+                        ),
+                        const Text(
+                          "Remember me",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                    // Forgot Password TextButton
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to RegisterScreen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const WelcomeScreen()),
+                        );
+                      },
+                      child: Text(
+                        "Forgot Password?",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.right,
               ),
-              const SizedBox(height: 35),
               //  Login Button
               ElevatedButton(
                 onPressed: () {
@@ -118,21 +173,6 @@ class LoginScreen extends StatelessWidget {
                 child: const Text(
                   'Log In',
                   style: TextStyle(fontSize: 18),
-                ),
-              ),
-              const SizedBox(height: 25),
-              TextButton(
-                onPressed: () {
-                  // Navigate to Register Screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegisterScreen()),
-                  );
-                },
-                child: const Text(
-                  "Don't have an account yet? Create new",
-                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ],

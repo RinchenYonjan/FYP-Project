@@ -4,6 +4,7 @@ import 'dart:async';
 // Importing other screens
 import 'screens/LoginScreen.dart';
 
+// main method
 void main() {
   runApp(MaterialApp(
     home: const SplashScreen(),
@@ -14,16 +15,22 @@ void main() {
   ));
 }
 
+// Constructor name SplashScreen that extends StatefulWidget property
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+// method that create State once
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashScreenState createState() {
+    return (_SplashScreenState());
+  }
 }
 
+// class name SplashScreenState that extend SplashScreen property
 class _SplashScreenState extends State<SplashScreen> {
   double _opacity = 0.0; // Opacity for fade-in animation
 
+// method that initate State once
   @override
   void initState() {
     super.initState();
